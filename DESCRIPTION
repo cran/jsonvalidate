@@ -1,8 +1,10 @@
 Package: jsonvalidate
-Title: Validate 'JSON'
-Version: 1.1.0
+Title: Validate 'JSON' Schema
+Version: 1.3.1
 Authors@R: c(person("Rich", "FitzJohn", role = c("aut", "cre"),
     email = "rich.fitzjohn@gmail.com"),
+    person("Rob", "Ashton", role = "aut"),
+    person("Alicia", "Schep", role = "ctb"),
     person("Ian", "Lyttle", role = "ctb"),
     person("Kara", "Woo", role = "ctb"),
     person("Mathias", "Buus", role = "cph"),
@@ -12,20 +14,24 @@ Description: Uses the node library 'is-my-json-valid' or 'ajv' to
     validate 'JSON' against a 'JSON' schema.  Drafts 04, 06 and 07 of
     'JSON' schema are supported.
 License: MIT + file LICENSE
-LazyData: true
-URL: https://github.com/ropensci/jsonvalidate
+URL: https://docs.ropensci.org/jsonvalidate/,
+        https://github.com/ropensci/jsonvalidate
 BugReports: https://github.com/ropensci/jsonvalidate/issues
 Imports: V8
-Suggests: knitr, rmarkdown, testthat
-RoxygenNote: 6.1.1
+Suggests: knitr, jsonlite, rmarkdown, testthat, withr
+RoxygenNote: 7.1.2
 VignetteBuilder: knitr
 Encoding: UTF-8
+Language: en-GB
+Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2019-06-25 07:13:19 UTC; rfitzjoh
+Packaged: 2021-10-22 11:09:35 UTC; rfitzjoh
 Author: Rich FitzJohn [aut, cre],
+  Rob Ashton [aut],
+  Alicia Schep [ctb],
   Ian Lyttle [ctb],
   Kara Woo [ctb],
   Mathias Buus [cph],
   Evgeny Poberezkin [cph]
 Repository: CRAN
-Date/Publication: 2019-06-25 09:00:03 UTC
+Date/Publication: 2021-10-22 11:50:06 UTC

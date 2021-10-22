@@ -4,8 +4,17 @@
 \alias{json_validate}
 \title{Validate a json file}
 \usage{
-json_validate(json, schema, verbose = FALSE, greedy = FALSE,
-  error = FALSE, engine = "imjv")
+json_validate(
+  json,
+  schema,
+  verbose = FALSE,
+  greedy = FALSE,
+  error = FALSE,
+  engine = "imjv",
+  reference = NULL,
+  query = NULL,
+  strict = FALSE
+)
 }
 \arguments{
 \item{json}{Contents of a json object, or a filename containing
@@ -28,17 +37,38 @@ only for the side-effect of an error on failure, like
 "imjv" (the default; which uses "is-my-json-valid") and "ajv"
 (Another JSON Schema Validator).  The latter supports more
 recent json schema features.}
+
+\item{reference}{Reference within schema to use for validating against a
+sub-schema instead of the full schema passed in. For example
+if the schema has a 'definitions' list including a definition for a
+'Hello' object, one could pass "#/definitions/Hello" and the validator
+would check that the json is a valid "Hello" object. Only available if
+\code{engine = "ajv"}.}
+
+\item{query}{A string indicating a component of the data to
+validate the schema against.  Eventually this may support full
+\href{https://www.npmjs.com/package/jsonpath}{jsonpath} syntax, but
+for now this must be the name of an element within \code{json}.  See
+the examples for more details.}
+
+\item{strict}{Set whether the schema should be parsed strictly or not.
+If in strict mode schemas will error to "prevent any unexpected
+behaviours or silently ignored mistakes in user schema". For example
+it will error if encounters unknown formats or unknown keywords. See
+https://ajv.js.org/strict-mode.html for details. Only available in
+\code{engine = "ajv"}.}
 }
 \description{
 Validate a single json against a schema.  This is a convenience
-wrapper around \code{json_validator(schema)(json)}
+wrapper around \code{json_validator(schema)(json)}.  See
+\code{\link[=json_validator]{json_validator()}} for further details.
 }
 \examples{
 # A simple schema example:
 schema <- '{
     "$schema": "http://json-schema.org/draft-04/schema#",
     "title": "Product",
-    "description": "A product from Acme\\'s catalog",
+    "description": "A product from Acme\'s catalog",
     "type": "object",
     "properties": {
         "id": {
@@ -70,10 +100,16 @@ schema <- '{
 jsonvalidate::json_validate("{}", schema, verbose = TRUE)
 
 # Test if some (valid) json conforms to the schema
-jsonvalidate::json_validate('{
+json <- '{
     "id": 1,
     "name": "A green door",
     "price": 12.50,
     "tags": ["home", "green"]
-}', schema)
+}'
+jsonvalidate::json_validate(json, schema)
+
+# Test a fraction of a data against a reference into the schema:
+jsonvalidate::json_validate(json, schema,
+                            query = "tags", reference = "#/properties/tags",
+                            engine = "ajv", verbose = TRUE)
 }
