@@ -1,7 +1,7 @@
-8d5e4173c3fa0c128eeb17e604e40d81 *DESCRIPTION
+501e267cc4c15204b6857f3e96464c63 *DESCRIPTION
 86f834386886038aef9a9e30a0a9b7e8 *LICENSE
 61804adaa698d168d029205084bba906 *NAMESPACE
-a1a999882692c553fd94bfdff0eec8f0 *NEWS.md
+dc5fff0c1c3933d04b17058226eeb969 *NEWS.md
 ebb2d1ca291fe95116bcbe2d674951c6 *R/read.R
 caf5ce51bf6111fadb869ed6b6285e11 *R/util.R
 9f4134499cbe937759fc30bf34971aa5 *R/validate.R
@@ -11,13 +11,13 @@ de8aa94789c8f79c07a74cda89969dd9 *README.md
 5ed8db7ae36f56c8a5cfc218c41ac926 *inst/LICENSE.ajv
 9befe7026bf915886cd566a98117c80e *inst/LICENSE.is-my-json-valid
 65841e38c563e1f08e07ca0da7a96ca2 *inst/WORDLIST
-37fb4f6705f5672d834442ed7d4c9f64 *inst/bundle.js
+08db5fce326cee259512f6906ffa04d3 *inst/bundle.js
 a08eaade11229e20a0c3d64a37442d80 *inst/doc/jsonvalidate.R
 94de027ec64e4a1b3240e0dfd543a0a5 *inst/doc/jsonvalidate.Rmd
-4282d34f2d6635c295d54e13b155cb16 *inst/doc/jsonvalidate.html
+2d7769e2b3f0ca295045553087147aaa *inst/doc/jsonvalidate.html
 b4e4af266994a88d8595aa75cc50a179 *man/json_validate.Rd
 f7ba666837da3b25fcc6a487b8e7043b *man/json_validator.Rd
-ad56b7454aa6ef2cbe2b35fecc8285f3 *tests/testthat.R
+a2caad6a39a5df947d4f1de56c188551 *tests/testthat.R
 e3f1aafadb440a269fdf284f63050488 *tests/testthat/schema.json
 c65f8f10c69af206ad0729000a1b609a *tests/testthat/schema2.json
 1437730771ca8b152c1cff0a7afdf085 *tests/testthat/test-read.R
