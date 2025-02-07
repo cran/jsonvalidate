@@ -34,30 +34,29 @@ schema <- '{
 }'
 
 ## -----------------------------------------------------------------------------
-v <- jsonvalidate::json_validator(schema)
+obj <- jsonvalidate::json_schema$new(schema)
 
 ## -----------------------------------------------------------------------------
 path <- tempfile()
 writeLines(schema, path)
-v <- jsonvalidate::json_validator(path)
+obj <- jsonvalidate::json_schema$new(path)
 
 ## ----include = FALSE----------------------------------------------------------
 file.remove(path)
 
 ## -----------------------------------------------------------------------------
-v("{}")
+obj$validate("{}")
 
 ## -----------------------------------------------------------------------------
-v("{}", verbose = TRUE)
+obj$validate("{}", verbose = TRUE)
 
 ## ----error = TRUE-------------------------------------------------------------
-v("{}", error = TRUE)
+try({
+obj$validate("{}", error = TRUE)
+})
 
 ## -----------------------------------------------------------------------------
-v("{}", verbose = TRUE, greedy = TRUE)
-
-## -----------------------------------------------------------------------------
-v('{
+obj$validate('{
     "id": 1,
     "name": "A green door",
     "price": 12.50,
@@ -65,7 +64,7 @@ v('{
 }')
 
 ## -----------------------------------------------------------------------------
-v('{
+obj$validate('{
     "id": 1,
     "name": "A green door",
     "price": -1,
@@ -73,7 +72,7 @@ v('{
 }', verbose = TRUE)
 
 ## -----------------------------------------------------------------------------
-v('{
+obj$validate('{
     "id": 1,
     "name": "A green door",
     "price": 12.50,
@@ -81,7 +80,7 @@ v('{
 }', verbose = TRUE)
 
 ## -----------------------------------------------------------------------------
-v('{
+obj$validate('{
     "id": "identifier",
     "name": 1,
     "price": -1,
@@ -95,5 +94,76 @@ json <- '{
     "price": 12.50,
     "tags": ["home", "green"]
 }'
-jsonvalidate::json_validate(json, schema)
+jsonvalidate::json_validate(json, schema, engine = "ajv")
+
+## -----------------------------------------------------------------------------
+v <- jsonvalidate::json_validator(schema, engine = "ajv")
+v(json)
+
+## -----------------------------------------------------------------------------
+schema <- '{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "city": { "type": "string" }
+  },
+  "type": "object",
+  "properties": {
+    "city": { "$ref": "#/definitions/city" }
+  }
+}'
+json <- '{
+    "city": "Firenze"
+}'
+jsonvalidate::json_validate(json, schema, engine = "ajv")
+
+## -----------------------------------------------------------------------------
+city_schema <- '{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "string",
+  "enum": ["Firenze"]
+}'
+address_schema <- '{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type":"object",
+  "properties": {
+    "city": { "$ref": "city.json" }
+  }
+}'
+
+path <- tempfile()
+dir.create(path)
+address_path <- file.path(path, "address.json")
+city_path <- file.path(path, "city.json")
+writeLines(address_schema, address_path)
+writeLines(city_schema, city_path)
+jsonvalidate::json_validate(json, address_path, engine = "ajv")
+
+## -----------------------------------------------------------------------------
+user_schema = '{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "required": ["address"],
+  "properties": {
+    "address": {
+      "$ref": "sub/address.json"
+    }
+  }
+}'
+
+json <- '{
+  "address": {
+    "city": "Firenze"
+  }
+}'
+
+path <- tempfile()
+subdir <- file.path(path, "sub")
+dir.create(subdir, showWarnings = FALSE, recursive = TRUE)
+city_path <- file.path(subdir, "city.json")
+address_path <- file.path(subdir, "address.json")
+user_path <- file.path(path, "schema.json")
+writeLines(city_schema, city_path)
+writeLines(address_schema, address_path)
+writeLines(user_schema, user_path)
+jsonvalidate::json_validate(json, user_path, engine = "ajv")
 

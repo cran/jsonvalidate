@@ -29,6 +29,12 @@ it will error if encounters unknown formats or unknown keywords. See
 https://ajv.js.org/strict-mode.html for details. Only available in
 \code{engine = "ajv"}.}
 }
+\value{
+A function that can be used to validate a
+schema. Additionally, the function has two attributes assigned:
+\code{v8} which is the JavaScript context (used internally) and
+\code{engine}, which contains the name of the engine used.
+}
 \description{
 Create a validator that can validate multiple json files.
 }
@@ -54,9 +60,9 @@ option \code{jsonvalidate.no_note_imjv} to \code{TRUE}. Consider using
 scope this option if you want to quieten it within code you do
 not control.  Alternatively, setting the option
 \code{jsonvalidate.no_note_imjv} to \code{FALSE} will print the message
-even noninteractively.
+even non-interactively.
 
-Updating the engine should be simply a case of adding \verb{\{engine = "ajv"} to your \code{json_validator} or \code{json_validate}
+Updating the engine should be simply a case of adding \code{engine = "ajv"} to your \code{json_validator} or \code{json_validate}
 calls, but you may see some issues when doing so.
 \itemize{
 \item Your json now fails validation: We've seen this where schemas
@@ -76,11 +82,11 @@ metaschema for example, jsonvalidate will fail
 \section{Using multiple files}{
 
 
-Multiple files are supported.  You can have a schema that
-references a file \code{child.json} using \code{{"$ref": "child.json"}} -
-in this case if \code{child.json} includes an \code{id} or \verb{$id} element
-it will be silently dropped and the filename used to reference
-the schema will be used as the schema id.
+Multiple files are supported.  You can have a schema that references
+a file \code{child.json} using \code{{"$ref": "child.json"}}---in this case if
+\code{child.json} includes an \code{id} or \verb{$id} element it will be silently
+dropped and the filename used to reference the schema will be used
+as the schema id.
 
 The support is currently quite limited - it will not (yet) read
 sub-child schemas relative to child schema \verb{$id} url, and

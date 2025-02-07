@@ -1,6 +1,6 @@
 Package: jsonvalidate
 Title: Validate 'JSON' Schema
-Version: 1.3.2
+Version: 1.5.0
 Authors@R: c(person("Rich", "FitzJohn", role = c("aut", "cre"),
     email = "rich.fitzjohn@gmail.com"),
     person("Rob", "Ashton", role = "aut"),
@@ -20,15 +20,15 @@ License: MIT + file LICENSE
 URL: https://docs.ropensci.org/jsonvalidate/,
         https://github.com/ropensci/jsonvalidate
 BugReports: https://github.com/ropensci/jsonvalidate/issues
-Imports: V8
+Imports: R6, V8
 Suggests: knitr, jsonlite, rmarkdown, testthat, withr
-RoxygenNote: 7.1.2
+RoxygenNote: 7.3.2
 VignetteBuilder: knitr
 Encoding: UTF-8
 Language: en-GB
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2021-11-03 14:55:48 UTC; rfitzjoh
+Packaged: 2025-02-07 10:12:53 UTC; rfitzjoh
 Author: Rich FitzJohn [aut, cre],
   Rob Ashton [aut],
   Alex Hill [ctb],
@@ -38,4 +38,4 @@ Author: Rich FitzJohn [aut, cre],
   Mathias Buus [aut, cph] (Author of bundled imjv library),
   Evgeny Poberezkin [aut, cph] (Author of bundled Ajv library)
 Repository: CRAN
-Date/Publication: 2021-11-03 15:50:02 UTC
+Date/Publication: 2025-02-07 11:20:02 UTC
